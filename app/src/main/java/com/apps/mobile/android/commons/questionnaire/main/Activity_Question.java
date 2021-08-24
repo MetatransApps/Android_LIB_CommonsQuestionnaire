@@ -337,8 +337,8 @@ public abstract class Activity_Question extends Activity_Base_Questionnaire impl
 				current_adLoadFlow_Interstitial.resume();
 			}
 			
-		} catch(Exception e) {
-			e.printStackTrace();
+		} catch(Throwable t) {
+			t.printStackTrace();
 		}
 	}
 }
