@@ -1,8 +1,6 @@
 package com.apps.mobile.android.commons.questionnaire.model;
 
 
-import java.util.Arrays;
-
 import com.apps.mobile.android.commons.model.GameData_Base;
 import com.apps.mobile.android.commons.questionnaire.api.IConfigurationQuestion;
 
