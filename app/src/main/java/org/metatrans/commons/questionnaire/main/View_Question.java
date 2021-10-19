@@ -403,24 +403,24 @@ public class View_Question extends View {
 
 
 	private void createLeaderBoardsView() {
-		
+
 		Application_Base.getInstance().getEngagementProvider().getLeaderboardsProvider().detachLeaderboardView(null);
-		
-		IConfigurationColours coloursCfg = ConfigurationUtils_Colours.getConfigByID(Application_Base.getInstance().getUserSettings().uiColoursID);	
+
+		IConfigurationColours coloursCfg = ConfigurationUtils_Colours.getConfigByID(Application_Base.getInstance().getUserSettings().uiColoursID);
 		final View _view_leaderboards = Application_Base.getInstance().getEngagementProvider().getLeaderboardsProvider().getLeaderboardView(coloursCfg, getRectangle_LeaderBoards());
-		
+
 		View _view_achievements = Application_Base.getInstance().getEngagementProvider().getAchievementsProvider().getAchievementsView(coloursCfg, getRectangle_LeaderBoards());
-		
+
 		if (_view_leaderboards != null && _view_achievements != null) {
 			if (_view_leaderboards != _view_achievements) {
 				throw new IllegalStateException("_view_leaderboards != _view_achievements");
 			}
 		}
-		
-		((View_Achievements_And_Leaderboards_Base)_view_leaderboards).measure(0, 0);
-		
+
+		((View_Achievements_And_Leaderboards_Base) _view_leaderboards).measure(0, 0);
+
 		view_leaderboards = (View_Achievements_And_Leaderboards_Base) _view_leaderboards;
-		
+
 		Application_Base.getInstance().getEngagementProvider().getLeaderboardsProvider().setEnabled(true);
 	}
 	

@@ -108,11 +108,13 @@ public class OnTouchListener_Question implements OnTouchListener {
 				((Activity_Question)view.getContext()).answer(index);
 				
 				if (getGameData().isCorrectAnswer(index)) {
+
 					view.setColourOfRectangleQuestionToValid();
 					
 					audio_player_correct.start();
 					
 				} else {
+
 					view.setColourOfRectangleQuestionToInValid();
 					
 					audio_player_incorrect.start();
@@ -121,7 +123,9 @@ public class OnTouchListener_Question implements OnTouchListener {
 		}
 		
 		if (getGameData().isCountedAsCompleted()) {
+
 			if (view.isOverCentralButton(x, y)) {
+
 				view.selectCentralButton();
 			}
 		}
@@ -136,9 +140,13 @@ public class OnTouchListener_Question implements OnTouchListener {
 		
 		
 		if (getGameData().isCountedAsCompleted()) {
+
 			if (view.isOverLeaderBoards(x, y)) {
+
 				if (view.getLeaderboard() != null) {
+
 					view.getLeaderboard().onTouch(view, event);
+
 					return;
 				}
 			}
@@ -146,29 +154,44 @@ public class OnTouchListener_Question implements OnTouchListener {
 		
 		
 		if (view.isOverButton_New(x, y)) {
+
 			view.selectButton_New();
+
 		} else {
+
 			view.deselectButton_New();
 		}
 		
 		if (view.isOverButton_Menu(x, y)) {
+
 			view.selectButton_Menu();
+
 		} else {
 			view.deselectButton_Menu();
 		}
 		
 			
 		int index = view.isOverButtons_Answers(x, y);
+
 		if (index > -1) {
+
 			//Do nothing
+
 		} else {
+
 			if (!getGameData().isCountedAsCompleted()) {
+
 				if (((Activity_Question)view.getContext()).allowedProcceedingWithWrongAnswer()) {
+
 					if (getGameData().buttons_clicked[0] || getGameData().buttons_clicked[1] || getGameData().buttons_clicked[2] || getGameData().buttons_clicked[3]) {
+
 						((Activity_Question)view.getContext()).nextQuestion();
 					}
+
 				} else {
+
 					if (getGameData().buttons_clicked[getGameData().current_question.getIndexCorrect()]) {
+
 						((Activity_Question)view.getContext()).nextQuestion();
 					}
 				}
@@ -177,10 +200,15 @@ public class OnTouchListener_Question implements OnTouchListener {
 		
 		
 		if (getGameData().isCountedAsCompleted()) {
+
 			if (view.isOverCentralButton(x, y)) {
+
 				view.selectCentralButton();
+
 			} else {
+
 				view.deselectCentralButton();
+
 			}
 		}
 	}
@@ -194,9 +222,13 @@ public class OnTouchListener_Question implements OnTouchListener {
 		
 		
 		if (getGameData().isCountedAsCompleted()) {
+
 			if (view.isOverLeaderBoards(x, y)) {
+
 				if (view.getLeaderboard() != null) {
+
 					view.getLeaderboard().onTouch(view, event);
+
 					return;
 				}
 			}
@@ -208,6 +240,7 @@ public class OnTouchListener_Question implements OnTouchListener {
 			view.deselectButton_New();
 			
 			AlertDialog.Builder adb = Alerts_Base.createAlertDialog_LoseGame(view.getContext(),
+
 					new DialogInterface.OnClickListener() {
 						public void onClick(DialogInterface dialog, int which) {
 							
@@ -223,17 +256,25 @@ public class OnTouchListener_Question implements OnTouchListener {
 			view.deselectButton_Menu();
 			
 			Intent i = new Intent(view.getContext(), ((Activity_Question)view.getContext()).getActivityClass_Menu());
+
 			view.getContext().startActivity(i);
 		}
 		
 		
 		int index = view.isOverButtons_Answers(x, y);
+
 		if (index > -1) {
+
 			if (((Activity_Question)view.getContext()).allowedProcceedingWithWrongAnswer()) {
+
 				((Activity_Question)view.getContext()).nextQuestion();
+
 			} else {
+
 				if (getGameData().isCorrectAnswer(index)) {
+
 					if (getGameData().buttons_clicked[getGameData().current_question.getIndexCorrect()]) {
+
 						((Activity_Question)view.getContext()).nextQuestion();
 					}
 				}
@@ -246,6 +287,7 @@ public class OnTouchListener_Question implements OnTouchListener {
 		if (getGameData().isCountedAsCompleted() && view.isOverCentralButton(x, y)) {
 			
 			if (getGameData().count_correct == getGameData().count_answered) {
+
 				//Increase level
 				((Activity_Question)view.getContext()).setNextLevel();
 			}
