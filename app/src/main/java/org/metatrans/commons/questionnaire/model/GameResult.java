@@ -17,11 +17,11 @@ public class GameResult implements Serializable {
 	
 	public boolean isTheOtherBetter(GameResult other) {
 		
-		if (other.count_incorrect < count_incorrect) {
+		if (other.count_correct > count_correct) {
 			return true;
 		}
 		
-		if (other.count_incorrect == count_incorrect) {
+		if (other.count_correct == count_correct) {
 			if (other.time <= time) {
 				return true;
 			}

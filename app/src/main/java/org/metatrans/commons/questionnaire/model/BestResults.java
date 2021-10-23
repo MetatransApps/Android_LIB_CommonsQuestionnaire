@@ -21,12 +21,16 @@ public class BestResults implements Serializable {
 	
 	
 	public void addResult(int modeID, GameResult new_result) {
+
+		if (new_result == null) {
+
+			throw new IllegalStateException("new_result=" + new_result);
+		}
+
 		GameResult old = getResult(modeID);
-		if (old != null) {
-			if (old.isTheOtherBetter(new_result)) {
-				results.put(modeID, new_result);
-			}
-		} else {
+
+		if (old == null || old.isTheOtherBetter(new_result)) {
+
 			results.put(modeID, new_result);
 		}
 	}

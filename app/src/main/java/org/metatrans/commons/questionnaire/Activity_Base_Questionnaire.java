@@ -10,10 +10,9 @@ import org.metatrans.commons.storage.StorageUtils;
 
 
 public abstract class Activity_Base_Questionnaire extends Activity_Base_Ads_Banner {
-	
-	
-	private static final String FILE_NAME_GAME_DATA		 	= "game_data";
-	private static final String FILE_NAME_BEST_RESULTS		= "best_results";
+
+
+	public static final String FILE_NAME_BEST_RESULTS		= "best_results";
 	
 	
 	@Override
@@ -37,23 +36,17 @@ public abstract class Activity_Base_Questionnaire extends Activity_Base_Ads_Bann
 	
 	
 	protected void storeData() {
-		
-		StorageUtils.writeStore(this, UserSettings.FILE_NAME_USER_SETTINGS);
-		StorageUtils.writeStore(this, FILE_NAME_GAME_DATA);
+
+		Application_Base.getInstance().storeUserSettings();;
+		Application_Base.getInstance().storeGameData();
 		
 		getBestResults();
 		StorageUtils.writeStore(this, FILE_NAME_BEST_RESULTS);
 	}
 	
-	
+
 	public GameData getGameData() {
-		GameData data = (GameData) StorageUtils.readStorage(this, FILE_NAME_GAME_DATA);
-		if (data == null) {
-			data = new GameData();
-			StorageUtils.writeStore(this, FILE_NAME_GAME_DATA, data);
-			data = (GameData) StorageUtils.readStorage(this, FILE_NAME_GAME_DATA);
-		}
-		return data;
+		return (GameData) Application_Base.getInstance().getGameData();
 	}
 	
 	

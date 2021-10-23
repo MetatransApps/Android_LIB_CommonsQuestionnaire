@@ -38,7 +38,7 @@ public abstract class Activity_Question extends Activity_Base_Questionnaire impl
 	protected abstract View createView();
 	protected abstract IConfigurationQuestion getNextQuestion();
 	protected abstract Class<? extends Activity_Base> getActivityClass_Menu();
-	protected abstract Class<? extends Activity_Base> getActivityClass_Result();
+	//protected abstract Class<? extends Activity_Base> getActivityClass_Result();
 	public abstract void setNextLevel();
 	
 	
@@ -73,6 +73,7 @@ public abstract class Activity_Question extends Activity_Base_Questionnaire impl
 		Application_Base.getInstance().getEngagementProvider().getLeaderboardsProvider().detachLeaderboardView(frame);
 
 		View view = createView();
+
 		frame.addView(view, 0);
 		
 		/*View_Question view_question = (View_Question) frame.findViewById(MAIN_VIEW_ID);
@@ -122,7 +123,6 @@ public abstract class Activity_Question extends Activity_Base_Questionnaire impl
 		//Toast_Base.showToast_InCenter(this, "onPause: timestamp_resume=" + timestamp_resume);
 		
 		if (!getGameData().isCountedAsCompleted()) {
-		//if (getGameData().count_answered < getUserSettings().countQuestions) {
 			long lastPeriodInsideTheMainScreen = System.currentTimeMillis() - timestamp_resume;
 			getGameData().addAccumulated_time_inmainscreen(lastPeriodInsideTheMainScreen);
 		}
@@ -156,6 +156,8 @@ public abstract class Activity_Question extends Activity_Base_Questionnaire impl
 		Application_Base.getInstance().recreateGameDataObject();
 		
 		nextQuestion();
+
+		Application_Base_Ads.getInstance().openInterstitial();
 	}
 	
 	
@@ -201,10 +203,13 @@ public abstract class Activity_Question extends Activity_Base_Questionnaire impl
 		
 		getGameData().clearForNewQuestion(question);
 
-		
-		FrameLayout frame = getFrame();
+
 		View view = findViewById(VIEW_ID);
+
 		view.destroyDrawingCache();
+
+		FrameLayout frame = getFrame();
+
 		frame.removeView(view);
 		
 		view = createView();
@@ -214,11 +219,11 @@ public abstract class Activity_Question extends Activity_Base_Questionnaire impl
 	
 	
 	public void setUpLeaderboard(boolean gameCompleted) { 
-		if (gameCompleted) {
+		/*if (gameCompleted) {
 			((Application_Base_Ads)getApplication()).getEngagementProvider().getLeaderboardsProvider().setEnabled(true);
 		} else {
 			((Application_Base_Ads)getApplication()).getEngagementProvider().getLeaderboardsProvider().setEnabled(false);
-		}
+		}*/
 	}
 	
 	
@@ -229,26 +234,27 @@ public abstract class Activity_Question extends Activity_Base_Questionnaire impl
 		boolean gameCompleted = next_question == null || getGameData().count_answered >= getUserSettings().countQuestions;
 		
 		setUpLeaderboard(gameCompleted);
-		
+
+		System.out.println("Activity_Question.nextQuestion: gameCompleted=" + gameCompleted);
+
 		if (gameCompleted) {
-			
+
+			System.out.println("Activity_Question.nextQuestion: getGameData().isCountedAsCompleted()=" + getGameData().isCountedAsCompleted());
+
 			if (!getGameData().isCountedAsCompleted()) {
-				
-				//INFO: Is set in handleGameEvents_OnFinish
-				//getGameData().setCountedAsCompleted();
-				
+
 				long lastPeriodInsideTheMainScreen = System.currentTimeMillis() - timestamp_resume;
 				getGameData().addAccumulated_time_inmainscreen(lastPeriodInsideTheMainScreen);
 				
 				GameResult gameResult = getGameData().getGameResult();
 				getBestResults().addResult(getUserSettings().modeID, gameResult);
-				
+
+				System.out.println("Activity_Question.nextQuestion: added gameResult=" + gameResult + ", gameResult.count_correct=" + gameResult.count_correct);
+
 				IEventsManager eventsManager = Application_Base.getInstance().getEventsManager();
 				eventsManager.handleGameEvents_OnFinish(this, getGameData(), getUserSettings(), -1);
-				
+
 				storeData();
-				
-				Application_Base_Ads.getInstance().openInterstitial();
 			}
 			
 			
@@ -275,8 +281,13 @@ public abstract class Activity_Question extends Activity_Base_Questionnaire impl
 				if (time_to2submit != 0) {
 					((Application_Base_Ads)getApplication()).getEngagementProvider().getLeaderboardsProvider().submitLeaderboardScore(getUserSettings().modeID, time_to2submit);
 				}
-				
-				((Application_Base_Ads)getApplication()).getEngagementProvider().getLeaderboardsProvider().openLeaderboard(getUserSettings().modeID);
+
+				GameResult best_result_for_this_mode = getBestResults().getResult(getUserSettings().modeID);
+
+				if (best_result_for_this_mode.isTheOtherBetter(getGameData().getGameResult())) {
+
+					((Application_Base_Ads)getApplication()).getEngagementProvider().getLeaderboardsProvider().openLeaderboard(getUserSettings().modeID);
+				}
 				
 			} else {
 				

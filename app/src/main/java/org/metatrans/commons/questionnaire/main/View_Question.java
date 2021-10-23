@@ -31,12 +31,13 @@ import android.view.View;;
 public class View_Question extends View {
 	
 	
-	private boolean initialized = false;
+	//private boolean initialized = false;
 	
-	private static final int MARGIN1 = 10;
+	private static final int MARGIN1 = 15;
 	
 	private RectF rectf_main;
-	
+
+	private RectF rectf_banner;
 	private RectF rectf_menu;
 	private RectF rectf_menu_scores_all;
 	private RectF rectf_menu_scores_correct;
@@ -92,7 +93,9 @@ public class View_Question extends View {
 		gameData = _gameData;
 		
 		rectf_main 	= new RectF();
-		
+
+		rectf_banner = new RectF();
+
 		rectf_menu = new RectF();
 		
 		rectf_menu_scores_all = new RectF();
@@ -167,12 +170,12 @@ public class View_Question extends View {
 		
 		super.onMeasure(widthMeasureSpec, heightMeasureSpec);
 		
-		if (!initialized) {
+		//if (!initialized) {
 			
 			initializeDimensions();
 			
-			initialized = true;
-		}
+			//initialized = true;
+		//}
 		
 		this.setMeasuredDimension( (int) (rectf_main.right - rectf_main.left), (int) (rectf_main.bottom - rectf_main.top) );
 	}
@@ -183,22 +186,32 @@ public class View_Question extends View {
 		int main_width = getMeasuredWidth();
 		int main_height = getMeasuredHeight();
 		
-		int segments = 8;
-		
-		rectf_button_center.left = main_width / 2 - main_height / 11;//- main_width / 9;
-		rectf_button_center.top = main_height / 2 - main_height / 11;
-		rectf_button_center.right = main_width / 2 + main_height / 11;//+ main_width / 9;
-		rectf_button_center.bottom = main_height / 2 + main_height / 11;
-		
+		//int segments = 8;
+
+		float sections_count = 8.875f;
+		int section_height = (int) (main_height / sections_count);
+		int panels_height = (int) (1.20f * section_height);
+		int question_height = (int) (5.367f * section_height);
+
 		rectf_main.left = 0;
 		rectf_main.top = 0;
 		rectf_main.right = main_width;
 		rectf_main.bottom = main_height;
+
+		rectf_banner.left = 0;
+		rectf_banner.right = main_width - 0;
+		rectf_banner.top = rectf_main.top;
+		rectf_banner.bottom = rectf_banner.top + section_height;
+
+		rectf_button_center.left = main_width / 2 - main_height / 11;
+		rectf_button_center.top = main_height / 2 - main_height / 11;
+		rectf_button_center.right = main_width / 2 + main_height / 11;
+		rectf_button_center.bottom = main_height / 2 + main_height / 11;
 		
-		rectf_menu.left = 0 + MARGIN1;
-		rectf_menu.top = 0 + MARGIN1;
-		rectf_menu.right = main_width - MARGIN1;
-		rectf_menu.bottom = rectf_menu.top + main_height / segments - MARGIN1;
+		rectf_menu.left = 0;
+		rectf_menu.top = rectf_banner.bottom;
+		rectf_menu.right = main_width;
+		rectf_menu.bottom = rectf_menu.top + panels_height - MARGIN1;
 		
 		int count_menu_buttons = 6;
 		int count_spaces = count_menu_buttons;// + 1;
@@ -230,14 +243,14 @@ public class View_Question extends View {
 		rectf_menu_button_menu.bottom = rectf_menu.bottom - MARGIN1;
 		
 		
-		rectf_question.left = 0 + MARGIN1;
+		rectf_question.left = 0;
 		rectf_question.top = rectf_menu.bottom + MARGIN1;
-		rectf_question.right = main_width - MARGIN1;
-		rectf_question.bottom = rectf_question.top + 4 * (main_height / segments);//rectf_question.top + 4 * (main_height / 9) - MARGIN1;
+		rectf_question.right = main_width;
+		rectf_question.bottom = rectf_question.top + question_height;
 		
-		rectf_question_image.left = rectf_question.left + MARGIN1;
+		rectf_question_image.left = rectf_question.left;
 		rectf_question_image.top = rectf_question.top + MARGIN1;
-		rectf_question_image.right = rectf_question.right - MARGIN1;
+		rectf_question_image.right = rectf_question.right;
 		rectf_question_image.bottom = rectf_question.bottom - MARGIN1;
 		
 		//Handle image case
@@ -264,15 +277,15 @@ public class View_Question extends View {
 			rectf_question_image.bottom = rectf_question_image.top + y_image;
 		}
 		
-		rectf_question_text.left = 0 + MARGIN1 + MARGIN1;
+		rectf_question_text.left = 0;// + MARGIN1 + MARGIN1;
 		rectf_question_text.top = rectf_question.bottom - (rectf_question.bottom - rectf_question.top) / 2 - (rectf_question.bottom - rectf_question.top) / 4;
-		rectf_question_text.right = main_width - MARGIN1 - MARGIN1;
+		rectf_question_text.right = main_width;// - MARGIN1 - MARGIN1;
 		rectf_question_text.bottom = rectf_question.bottom - (rectf_question.bottom - rectf_question.top) / 2 + (rectf_question.bottom - rectf_question.top) / 4;
 		
-		rectf_buttons.left = 0 + MARGIN1;
+		rectf_buttons.left = 0;
 		rectf_buttons.top = rectf_question.bottom + MARGIN1;
-		rectf_buttons.right = main_width - MARGIN1;
-		rectf_buttons.bottom = rectf_buttons.top + 1 * (main_height / segments);
+		rectf_buttons.right = main_width;
+		rectf_buttons.bottom = rectf_buttons.top + panels_height;
 		
 		rectf_leaderboards.bottom = rectf_button_center.top - MARGIN1;
 		rectf_leaderboards.top = rectf_leaderboards.bottom - menu_button_width;
@@ -421,7 +434,7 @@ public class View_Question extends View {
 
 		view_leaderboards = (View_Achievements_And_Leaderboards_Base) _view_leaderboards;
 
-		Application_Base.getInstance().getEngagementProvider().getLeaderboardsProvider().setEnabled(true);
+		//Application_Base.getInstance().getEngagementProvider().getLeaderboardsProvider().setEnabled(true);
 	}
 	
 	

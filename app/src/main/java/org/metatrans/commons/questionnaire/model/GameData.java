@@ -52,12 +52,12 @@ public class GameData extends GameData_Base {
 	
 	
 	public GameResult getGameResult() {
-		if (result == null) {
+		//if (result == null) {
 			result = createGameResult();
 			result.count_correct = count_correct;
 			result.count_incorrect = count_answered - count_correct;
 			result.time = getAccumulated_time_inmainscreen();			
-		}
+		//}
 		return result;
 	}
 	
