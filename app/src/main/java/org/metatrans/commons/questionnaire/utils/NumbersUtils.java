@@ -26,7 +26,7 @@ public class NumbersUtils {
 	
 	public static void shuffleArray(Object[] ar, int start) {
 		
-		Random rnd = new Random();
+		Random rnd = new Random(System.nanoTime());
 		
 		for (int i = ar.length - 1; i > start; i--) {
 			

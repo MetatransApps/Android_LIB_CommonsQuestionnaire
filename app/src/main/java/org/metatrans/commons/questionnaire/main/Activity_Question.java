@@ -8,7 +8,7 @@ import org.metatrans.commons.ads.api.IAdsConfiguration;
 import org.metatrans.commons.ads.impl.flow.IAdLoadFlow;
 import org.metatrans.commons.app.Application_Base;
 import org.metatrans.commons.app.Application_Base_Ads;
-import org.metatrans.commons.app.IActivityInterstitial;
+import org.metatrans.commons.IActivityInterstitial;
 import org.metatrans.commons.events.api.IEventsManager;
 import org.metatrans.commons.questionnaire.Activity_Base_Questionnaire;
 import org.metatrans.commons.questionnaire.R;
@@ -134,7 +134,7 @@ public abstract class Activity_Question extends Activity_Base_Questionnaire impl
 	}
 	
 	
-	private String getInterstitialName() {
+	protected String getInterstitialName() {
 		return IAdsConfiguration.AD_ID_INTERSTITIAL1;
 	}
 	
