@@ -28,17 +28,20 @@ public abstract class Activity_Question extends Activity_Base_Questionnaire impl
 	
 	
 	protected static final int VIEW_ID = 123;
-	
-	
+
+
 	private long timestamp_resume;
-	
-	private IAdLoadFlow current_adLoadFlow_Interstitial;
 	
 	
 	protected abstract View createView();
+
+
 	protected abstract IConfigurationQuestion getNextQuestion();
+
+
 	protected abstract Class<? extends Activity_Base> getActivityClass_Menu();
-	//protected abstract Class<? extends Activity_Base> getActivityClass_Result();
+
+
 	public abstract void setNextLevel();
 	
 	
@@ -95,25 +98,6 @@ public abstract class Activity_Question extends Activity_Base_Questionnaire impl
 		setUpLeaderboard(getGameData().isCountedAsCompleted());
 
 		super.onResume();
-		
-		if (getInterstitialName() != null) {
-			
-			current_adLoadFlow_Interstitial = ((Application_Base_Ads)getApplication()).getAdsManager().getCachedFlow(getInterstitialName());
-			
-			if (current_adLoadFlow_Interstitial == null) {
-				
-				System.out.println("Activity_Question create Interstitial");
-				
-				current_adLoadFlow_Interstitial = ((Application_Base_Ads)getApplication()).getAdsManager().createFlow_Interstitial_Mixed(getInterstitialName());
-				((Application_Base_Ads)getApplication()).getAdsManager().putCachedFlow(getInterstitialName(), current_adLoadFlow_Interstitial);
-			} else {
-				
-				System.out.println("Activity_Question Interstitial EXISTS");
-				
-				//current_adLoadFlow_Interstitial.cleanCurrent();
-				current_adLoadFlow_Interstitial.pause();
-			}
-		}
 	}
 	
 	
@@ -132,19 +116,20 @@ public abstract class Activity_Question extends Activity_Base_Questionnaire impl
 		
 		super.onPause();
 	}
-	
-	
+
+
+	@Override
 	protected String getInterstitialName() {
 		return IAdsConfiguration.AD_ID_INTERSTITIAL1;
 	}
-	
-	
+
+
 	@Override
 	protected FrameLayout getFrame() {
 		return (FrameLayout) findViewById(R.id.layout_main_vertical);
 	}
-	
-	
+
+
 	public void startNewGame() {
 		
 		IEventsManager eventsManager = Application_Base.getInstance().getEventsManager();
@@ -299,11 +284,6 @@ public abstract class Activity_Question extends Activity_Base_Questionnaire impl
 		}
 	}
 	
-	
-	/*protected void showLeaderBoards() {
-
-	}*/
-	
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -334,22 +314,5 @@ public abstract class Activity_Question extends Activity_Base_Questionnaire impl
 	public void onConfigurationChanged(Configuration newConfig) {
 	    super.onConfigurationChanged(newConfig);
 	    setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-	}
-	
-	
-	@Override
-	public void openInterstitial() {
-		try {
-			
-			System.out.println("Activity_Question openInterstitial called");
-			
-			if (current_adLoadFlow_Interstitial != null) {
-				System.out.println("Activity_Question openInterstitial RESUMED");
-				current_adLoadFlow_Interstitial.resume();
-			}
-			
-		} catch(Throwable t) {
-			t.printStackTrace();
-		}
 	}
 }
