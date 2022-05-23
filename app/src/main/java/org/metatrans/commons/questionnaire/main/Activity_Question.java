@@ -81,7 +81,7 @@ public abstract class Activity_Question extends Activity_Base_Questionnaire impl
 		
 		/*View_Question view_question = (View_Question) frame.findViewById(MAIN_VIEW_ID);
 		
-		IConfigurationColours coloursCfg = ConfigurationUtils_Colours.getConfigByID(getUserSettings().uiColoursID);
+		IConfigurationSound coloursCfg = ConfigurationUtils_Sound.getConfigByID(getUserSettings().uiColoursID);
 		View _view_leaderboards = Application_Base.getInstance().getEngagementProvider().getLeaderboardsProvider().getLeaderboardView(coloursCfg, view_question.getRectangle_LeaderBoards());
 		View _view_achievements = Application_Base.getInstance().getEngagementProvider().getAchievementsProvider().getAchievementsView(coloursCfg, view_question.getRectangle_LeaderBoards());
 		

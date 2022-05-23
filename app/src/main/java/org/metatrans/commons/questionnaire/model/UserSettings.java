@@ -16,8 +16,10 @@ public class UserSettings extends UserSettings_Base {
 	
 	
 	public int countQuestions;
-	
-	
+
+	public int sound_cfg_id;
+
+
 	public UserSettings() {
 		
 		super();

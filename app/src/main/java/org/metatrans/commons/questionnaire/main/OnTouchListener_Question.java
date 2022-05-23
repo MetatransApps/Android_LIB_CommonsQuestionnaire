@@ -2,8 +2,11 @@ package org.metatrans.commons.questionnaire.main;
 
 
 import org.metatrans.commons.Alerts_Base;
+import org.metatrans.commons.app.Application_Base;
+import org.metatrans.commons.cfg.sound.IConfigurationSound;
 import org.metatrans.commons.questionnaire.R;
 import org.metatrans.commons.questionnaire.model.GameData;
+import org.metatrans.commons.questionnaire.model.UserSettings;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -19,7 +22,9 @@ public class OnTouchListener_Question implements OnTouchListener {
 	
 	
 	private View_Question view;
-	
+
+	private boolean sound_enabled;
+
 	private MediaPlayer audio_player_correct;
 	private MediaPlayer audio_player_incorrect;
 	
@@ -27,12 +32,19 @@ public class OnTouchListener_Question implements OnTouchListener {
 	public OnTouchListener_Question(View_Question _view) {
 		
 		view = _view;
-		
-		audio_player_correct = MediaPlayer.create(view.getContext(), R.raw.sound_correct);
-		audio_player_correct.setAudioStreamType(AudioManager.STREAM_MUSIC);
-		
-		audio_player_incorrect = MediaPlayer.create(view.getContext(), R.raw.sound_incorrect);
-		audio_player_incorrect.setAudioStreamType(AudioManager.STREAM_MUSIC);
+
+		sound_enabled = ((UserSettings) Application_Base.getInstance().getUserSettings()).sound_cfg_id
+							== IConfigurationSound.CFG_SOUND_ON;
+
+		if (sound_enabled) {
+
+			//TODO: Check STREAM_MUSIC ? Use STREAM_ALARM for a while ...
+			audio_player_correct = MediaPlayer.create(view.getContext(), R.raw.sound_correct);
+			audio_player_correct.setAudioStreamType(AudioManager.STREAM_MUSIC);
+
+			audio_player_incorrect = MediaPlayer.create(view.getContext(), R.raw.sound_incorrect);
+			audio_player_incorrect.setAudioStreamType(AudioManager.STREAM_MUSIC);
+		}
 	}
 	
 	
@@ -111,13 +123,13 @@ public class OnTouchListener_Question implements OnTouchListener {
 
 					view.setColourOfRectangleQuestionToValid();
 					
-					audio_player_correct.start();
+					if (audio_player_correct != null) audio_player_correct.start();
 					
 				} else {
 
 					view.setColourOfRectangleQuestionToInValid();
-					
-					audio_player_incorrect.start();
+
+					if (audio_player_incorrect != null) audio_player_incorrect.start();
 				}
 			}
 		}
