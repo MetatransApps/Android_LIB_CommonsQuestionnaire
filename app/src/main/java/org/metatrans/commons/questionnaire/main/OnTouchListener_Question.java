@@ -110,9 +110,9 @@ public class OnTouchListener_Question implements OnTouchListener {
 		
 		
 		int index = view.isOverButtons_Answers(x, y);
-		
+
 		if (index > -1) {
-			
+
 			if (!getGameData().buttons_clicked[index]) { 
 			
 				view.selectButton(index);
@@ -301,7 +301,7 @@ public class OnTouchListener_Question implements OnTouchListener {
 			if (getGameData().count_correct == getGameData().count_answered) {
 
 				//Increase level
-				((Activity_Question)view.getContext()).setNextLevel();
+				((Activity_Question) view.getContext()).setNextLevel();
 			}
 			
 			((Activity_Question)view.getContext()).startNewGame();

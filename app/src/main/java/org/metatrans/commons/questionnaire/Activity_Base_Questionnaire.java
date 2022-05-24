@@ -46,7 +46,19 @@ public abstract class Activity_Base_Questionnaire extends Activity_Base_Ads_Bann
 	
 
 	public GameData getGameData() {
-		return (GameData) Application_Base.getInstance().getGameData();
+
+		try {
+
+			return (GameData) Application_Base.getInstance().getGameData();
+
+		} catch (Exception e) {
+
+			e.printStackTrace();
+
+			Application_Base.getInstance().recreateGameDataObject();
+
+			return (GameData) Application_Base.getInstance().getGameData();
+		}
 	}
 	
 	

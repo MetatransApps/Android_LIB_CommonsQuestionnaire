@@ -107,11 +107,14 @@ public abstract class Activity_Question extends Activity_Base_Questionnaire impl
 		//Toast_Base.showToast_InCenter(this, "onPause: timestamp_resume=" + timestamp_resume);
 		
 		if (!getGameData().isCountedAsCompleted()) {
+
 			long lastPeriodInsideTheMainScreen = System.currentTimeMillis() - timestamp_resume;
+
 			getGameData().addAccumulated_time_inmainscreen(lastPeriodInsideTheMainScreen);
 		}
 		
 		IEventsManager eventsManager = Application_Base.getInstance().getEventsManager();
+
 		eventsManager.updateLastMainScreenInteraction(this, System.currentTimeMillis());
 		
 		super.onPause();
@@ -126,7 +129,7 @@ public abstract class Activity_Question extends Activity_Base_Questionnaire impl
 
 	@Override
 	protected FrameLayout getFrame() {
-		return (FrameLayout) findViewById(R.id.layout_main_vertical);
+		return findViewById(R.id.layout_main_vertical);
 	}
 
 
@@ -144,24 +147,15 @@ public abstract class Activity_Question extends Activity_Base_Questionnaire impl
 
 		Application_Base_Ads.getInstance().openInterstitial();
 	}
-	
-	
-	public boolean isAnswered() {
-		return getGameData().current_answered;
-	}
-	
-	
-	public boolean isAnsweredCorrect() {
-		if (!getGameData().current_answered) {
-			throw new IllegalStateException("!getGameData().current_answered");
-		}
-		return getGameData().current_answered_correct;
-	}
-	
+
 	
 	public void answer(int _index_button) {
-		
+
+		System.out.println("answer._index_button=" + _index_button);
+
 		if (!getGameData().current_answered) {
+
+			System.out.println("answer.getGameData().current_answered=" + getGameData().current_answered);
 
 			getGameData().current_answered = true;
 			getGameData().current_answered_correct = getGameData().isCorrectAnswer(_index_button);
@@ -170,39 +164,27 @@ public abstract class Activity_Question extends Activity_Base_Questionnaire impl
 			if (getGameData().current_answered_correct) {
 				getGameData().count_correct++;
 			}
-			
+
 			if (getGameData().answers_history == null) {
 				getGameData().answers_history = new boolean[0];
 			}
+
 			getGameData().answers_history = Arrays.copyOf(getGameData().answers_history, getGameData().answers_history.length + 1);
 			getGameData().answers_history[getGameData().answers_history.length - 1] = getGameData().current_answered_correct;
 		}
-		
+
+		System.out.println("answer.getGameData().count_answered=" + getGameData().count_answered);
+
 		getGameData().buttons_clicked[_index_button] = true;
-		
 	}
 	
 	
 	private void openQuestion(IConfigurationQuestion question) {
 		
-		
 		getGameData().clearForNewQuestion(question);
-
-
-		View view = findViewById(VIEW_ID);
-
-		view.destroyDrawingCache();
-
-		FrameLayout frame = getFrame();
-
-		frame.removeView(view);
-		
-		view = createView();
-		
-		frame.addView(view, 0);
 	}
-	
-	
+
+
 	public void setUpLeaderboard(boolean gameCompleted) { 
 		/*if (gameCompleted) {
 			((Application_Base_Ads)getApplication()).getEngagementProvider().getLeaderboardsProvider().setEnabled(true);
@@ -250,20 +232,27 @@ public abstract class Activity_Question extends Activity_Base_Questionnaire impl
 			if (((Application_Base_Ads)getApplication()).getEngagementProvider().getSocialProvider().isConnected()) {
 				
 				long time_to2submit = 0;
+
 				if (getGameData().getGameResult().count_incorrect == 0) {
+
 					time_to2submit = getGameData().getGameResult().time;
 				}
 				
 				GameResult best = getBestResults().getResult(getUserSettings().modeID);
+
 				if (best != null) {
+
 					if (best.count_incorrect == 0) {
+
 						if (best.time < time_to2submit) { //Attention: less is better
+
 							time_to2submit = best.time;
 						}
 					}
 				}
 				
 				if (time_to2submit != 0) {
+
 					((Application_Base_Ads)getApplication()).getEngagementProvider().getLeaderboardsProvider().submitLeaderboardScore(getUserSettings().modeID, time_to2submit);
 				}
 
@@ -280,39 +269,46 @@ public abstract class Activity_Question extends Activity_Base_Questionnaire impl
 			}
 			
 		} else {
+
 			openQuestion(next_question);
 		}
+
+		recreateView();
 	}
-	
+
+
+	private void recreateView() {
+
+		View view = findViewById(VIEW_ID);
+
+		FrameLayout frame = getFrame();
+
+		frame.removeView(view);
+
+		view.destroyDrawingCache();
+
+		view = createView();
+
+		frame.addView(view, 0);
+	}
+
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		
 		Intent i = new Intent(getApplicationContext(), getActivityClass_Menu());
+
 		startActivity(i);
 		
 		return false;
 	}
 	
 	
-	/*@Override
-	public void onBackPressed() {
-		AlertDialog.Builder adb = Alerts_Base.createAlertDialog_Exit(Activity_Question.this,
-				new DialogInterface.OnClickListener() {
-					public void onClick(DialogInterface dialog, int which) {
-						
-						dialog.dismiss();
-						finish();
-					}
-				});
-				
-		adb.show();
-	}*/
-	
-	
 	@Override
 	public void onConfigurationChanged(Configuration newConfig) {
+
 	    super.onConfigurationChanged(newConfig);
+
 	    setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 	}
 }
