@@ -51,11 +51,11 @@ public class UserSettings extends UserSettings_Base {
 	    	uiColoursID 		= IConfigurationColours.CFG_COLOUR_BLUE_PETROL;
 	    	System.out.println(this.getClass().getName() + " : " + op + " - updating colour id");
 	    }
-		if (modeID == 0) {
+		/*if (modeID == 0) {
 			modeID 		= 5;
 	    	System.out.println(this.getClass().getName() + " : " + op + " - updating mode id");
-	    }
-		if (countQuestions == 0){
+	    }*/
+		if (countQuestions == 0) {
 			countQuestions = 30;
 			System.out.println(this.getClass().getName() + " : " + op + " - updating countQuestions");
 		}

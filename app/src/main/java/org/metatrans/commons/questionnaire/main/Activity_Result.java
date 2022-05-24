@@ -9,7 +9,6 @@ import org.metatrans.commons.engagement.social.View_Social_InviteFriends;
 import org.metatrans.commons.events.api.IEventsManager;
 import org.metatrans.commons.questionnaire.Activity_Base_Questionnaire;
 import org.metatrans.commons.questionnaire.R;
-import org.metatrans.commons.questionnaire.model.GameResult;
 
 import android.content.res.Configuration;
 import android.os.Bundle;
@@ -61,7 +60,8 @@ public abstract class Activity_Result extends Activity_Base_Questionnaire {
 
 	@Override
 	protected FrameLayout getFrame() {
-		return (FrameLayout) findViewById(R.id.layout_result_vertical);
+
+		return findViewById(R.id.layout_result_vertical);
 	}
 	
 	
@@ -80,6 +80,7 @@ public abstract class Activity_Result extends Activity_Base_Questionnaire {
 	public void startNewGame() {
 
 		if (true) {
+
 			throw new IllegalStateException("startNewGame");
 		}
 
@@ -93,7 +94,7 @@ public abstract class Activity_Result extends Activity_Base_Questionnaire {
 	
 	@Override
 	public void onConfigurationChanged(Configuration newConfig) {
+
 	    super.onConfigurationChanged(newConfig);
-	    //setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 	}
 }

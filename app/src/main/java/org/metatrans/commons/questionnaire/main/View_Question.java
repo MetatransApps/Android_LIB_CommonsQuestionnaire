@@ -411,6 +411,7 @@ public class View_Question extends View {
 	
 	
 	protected String getTextToDisplayOnMenuScoresAll() {
+
 		return toDoubleDigit(gameData.count_answered) + " / " + ((Activity_Question)getContext()).getUserSettings().countQuestions;
 	}
 

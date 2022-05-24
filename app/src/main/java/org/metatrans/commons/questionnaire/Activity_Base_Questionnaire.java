@@ -63,7 +63,8 @@ public abstract class Activity_Base_Questionnaire extends Activity_Base_Ads_Bann
 	
 	
 	public UserSettings getUserSettings() {
-		return (UserSettings) ((Application_Base)getApplication()).getUserSettings();
+
+		return (UserSettings) Application_Base.getInstance().getUserSettings();
 	}
 	
 	
