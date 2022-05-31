@@ -12,6 +12,8 @@ import android.widget.AdapterView;
 import org.metatrans.commons.Activity_Base;
 import org.metatrans.commons.R;
 import org.metatrans.commons.app.Application_Base;
+import org.metatrans.commons.cfg.colours.ConfigurationUtils_Colours;
+import org.metatrans.commons.cfg.colours.IConfigurationColours;
 import org.metatrans.commons.cfg.sound.ConfigurationUtils_Sound;
 import org.metatrans.commons.cfg.sound.IConfigurationSound;
 import org.metatrans.commons.events.api.IEvent_Base;
@@ -41,12 +43,13 @@ public class Activity_Menu_Sound extends Activity_Base {
 
 		int currOrderNumber = ConfigurationUtils_Sound.getOrderNumber(sound_cfg_id);
 
-		//IConfigurationSound sound_sfg = ConfigurationUtils_Sound.getConfigByID(sound_cfg_id);
+		IConfigurationColours coloursCfg = ConfigurationUtils_Colours.getConfigByID(((Application_Base) getApplication()).getUserSettings().uiColoursID);
 
+		int color_background = coloursCfg.getColour_Background();
 
 		LayoutInflater inflater = LayoutInflater.from(this);
 
-		ViewGroup frame = ListViewFactory.create_CITD_ByXML(this, inflater, buildRows(currOrderNumber), -1, currOrderNumber, new OnItemClickListener_Menu());
+		ViewGroup frame = ListViewFactory.create_CITD_ByXML(this, inflater, buildRows(currOrderNumber), color_background, currOrderNumber, new OnItemClickListener_Menu());
 		
 		setContentView(frame);
 		

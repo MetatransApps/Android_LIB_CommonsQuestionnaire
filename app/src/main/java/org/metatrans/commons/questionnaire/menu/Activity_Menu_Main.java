@@ -21,7 +21,7 @@ import java.util.List;
 public class Activity_Menu_Main extends Activity_Menu_Main_Base {
 
 
-	public static int CFG_MENU_SOUND		 		= 13;
+	public static int CFG_MENU_SOUND		 			= 13;
 	public static int CFG_MENU_RESULT			 		= 16;
 	public static int CFG_MENU_ACHIEVEMENTS		 		= 17;
 
