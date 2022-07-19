@@ -119,16 +119,24 @@ public class View_Question extends View {
 		
 		bitmaps_buttons = new Bitmap[gameData.current_question.getAnswersCount()];
 		for (int i=0; i<bitmaps_buttons.length; i++) {
-			if (gameData.current_question instanceof IConfigurationQuestion_ImageButtons){
-				bitmaps_buttons[i] = BitmapUtils.fromResource(getContext(), ((IConfigurationQuestion_ImageButtons)gameData.current_question).getResID_Answers()[i]);
-				//bitmaps_buttons[i] = BitmapFactory.decodeResource(getResources(), ((IConfigurationQuestion_ImageButtons)gameData.current_question).getResID_Answers()[i]);
-				//System.out.println("BUTTON IMAGE: " + ((IConfigurationQuestion_ImageButtons)gameData.current_question).getResID_Answers()[i]);
-			} else {
-				bitmaps_buttons[i] = BitmapUtils.textAsBitmap(((IConfigurationQuestion_TextButtons)gameData.current_question).getAnswers()[i] + "", 10, coloursCfg.getColour_Square_White());
-				//System.out.println("BUTTON TEXT: " + ((IConfigurationQuestion_TextButtons)gameData.current_question).getAnswers()[i]);
-			}
 
-			//System.out.println("BUTTON: " + bitmaps_buttons[i] );
+			if (gameData.current_question instanceof IConfigurationQuestion_ImageButtons) {
+
+				IConfigurationQuestion_ImageButtons cfg_question = (IConfigurationQuestion_ImageButtons) gameData.current_question;
+
+				if (cfg_question.getAnswers() instanceof Bitmap[]) {
+
+					bitmaps_buttons[i] = ((Bitmap[]) cfg_question.getAnswers())[i];
+
+				} else {
+
+					bitmaps_buttons[i] = BitmapUtils.fromResource(getContext(), ((IConfigurationQuestion_ImageButtons)gameData.current_question).getResID_Answers()[i]);
+				}
+
+			} else {
+
+				bitmaps_buttons[i] = BitmapUtils.textAsBitmap(((IConfigurationQuestion_TextButtons)gameData.current_question).getAnswers()[i] + "", 10, coloursCfg.getColour_Square_White());
+			}
 		}
 		
 		if (bitmap_replay == null) {
@@ -142,9 +150,14 @@ public class View_Question extends View {
 			buttons = new ButtonAreaClick[gameData.current_question.getAnswersCount()];
 		}
 		
-		if (gameData.current_question instanceof IConfigurationQuestion_ImageQuestion){
-			bitmap_question = BitmapUtils.fromResource(getContext(), ((IConfigurationQuestion_ImageQuestion)gameData.current_question).getResID_Question());
-			//bitmap_question = BitmapFactory.decodeResource(getResources(), ((IConfigurationQuestion_ImageQuestion)gameData.current_question).getResID_Question());
+		if (gameData.current_question instanceof IConfigurationQuestion_ImageQuestion) {
+
+			IConfigurationQuestion_ImageQuestion cfg_question = (IConfigurationQuestion_ImageQuestion)gameData.current_question;
+
+			Bitmap bitmap = cfg_question.getQuestion();
+
+			bitmap_question = bitmap != null ? bitmap : BitmapUtils.fromResource(getContext(), cfg_question.getResID_Question());
+
 		} else {
 
 			int textColour = ((IConfigurationQuestion_TextQuestion) gameData.current_question).getQuestionColour();

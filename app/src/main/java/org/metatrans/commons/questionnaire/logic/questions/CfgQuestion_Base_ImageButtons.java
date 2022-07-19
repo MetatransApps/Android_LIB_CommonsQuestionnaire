@@ -13,7 +13,7 @@ public abstract class CfgQuestion_Base_ImageButtons extends CfgQuestion_Base imp
 	protected CfgQuestion_Base_ImageButtons(int _index_correct, Object[] _array) {
 		super(_index_correct, _array);
 	}
-	
+
 	
 	public int[] getResID_Answers() {
 		
