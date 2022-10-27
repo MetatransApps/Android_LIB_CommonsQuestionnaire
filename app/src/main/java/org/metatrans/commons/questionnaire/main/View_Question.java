@@ -425,7 +425,20 @@ public class View_Question extends View {
 	
 	protected String getTextToDisplayOnMenuScoresAll() {
 
-		return toDoubleDigit(gameData.count_answered) + " / " + ((Activity_Question)getContext()).getUserSettings().countQuestions;
+		if (hasFixedQuestionsCount()) {
+
+			return toDoubleDigit(gameData.count_answered) + " / " + ((Activity_Question)getContext()).getUserSettings().countQuestions;
+
+		} else {
+
+			return toDoubleDigit(gameData.count_answered);
+		}
+	}
+
+
+	protected boolean hasFixedQuestionsCount() {
+
+		return true;
 	}
 
 
