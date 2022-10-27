@@ -198,7 +198,7 @@ public abstract class Activity_Question extends Activity_Base_Questionnaire impl
 		
 		IConfigurationQuestion next_question = getNextQuestion();
 		
-		boolean gameCompleted = next_question == null || getGameData().count_answered >= getUserSettings().countQuestions;
+		boolean gameCompleted = next_question == null;
 		
 		setUpLeaderboard(gameCompleted);
 
