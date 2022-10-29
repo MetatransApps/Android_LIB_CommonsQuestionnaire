@@ -258,10 +258,10 @@ public abstract class Activity_Question extends Activity_Base_Questionnaire impl
 
 				GameResult best_result_for_this_mode = getBestResults().getResult(getUserSettings().modeID);
 
-				if (best_result_for_this_mode.isTheOtherBetter(getGameData().getGameResult())) {
+				//if (best_result_for_this_mode.isTheOtherBetter(getGameData().getGameResult())) {
 
 					((Application_Base_Ads)getApplication()).getEngagementProvider().getLeaderboardsProvider().openLeaderboard(getUserSettings().modeID);
-				}
+				//}
 				
 			} else {
 				
