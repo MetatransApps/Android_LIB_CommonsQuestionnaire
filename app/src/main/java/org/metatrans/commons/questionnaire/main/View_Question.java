@@ -135,7 +135,7 @@ public class View_Question extends View {
 
 			} else {
 
-				bitmaps_buttons[i] = BitmapUtils.textAsBitmap(((IConfigurationQuestion_TextButtons)gameData.current_question).getAnswers()[i] + "", 10, coloursCfg.getColour_Square_White());
+				bitmaps_buttons[i] = BitmapUtils.textAsBitmap(((IConfigurationQuestion_TextButtons) gameData.current_question).getAnswers()[i] + "", 10, coloursCfg.getColour_Square_White());
 			}
 		}
 		
@@ -387,16 +387,36 @@ public class View_Question extends View {
 		
 		
 		if (gameData.current_question instanceof IConfigurationQuestion_ImageButtons) {
+
 			for (int i=0; i<buttons.length; i++) {
+
 				int colour_mark = (i == gameData.current_question.getIndexCorrect()) ? coloursCfg.getColour_Square_ValidSelection() : coloursCfg.getColour_Square_InvalidSelection();
 				buttons[i] = new ButtonAreaClick_Image(rectangles_buttons[i], bitmaps_buttons[i], coloursCfg.getColour_Square_Black(), colour_mark);
 			}
+
 		} else {
+
 			for (int i=0; i<buttons.length; i++) {
+
+				Object answer = gameData.current_question.getAnswers()[i];
+
 				int colour_mark = (i == gameData.current_question.getIndexCorrect()) ? coloursCfg.getColour_Square_ValidSelection() : coloursCfg.getColour_Square_InvalidSelection();
-				buttons[i] = new ButtonAreaClick(rectangles_buttons[i], "" + ((IConfigurationQuestion_TextButtons) gameData.current_question).getAnswers()[i],
-						coloursCfg.getColour_Square_Black(),
-						colour_of_question_and_buttons, colour_mark);
+
+				if (answer instanceof String) { //Text
+
+					buttons[i] = new ButtonAreaClick(rectangles_buttons[i], "" + answer,
+							coloursCfg.getColour_Square_Black(),
+							colour_of_question_and_buttons, colour_mark);
+
+				} else if (answer instanceof Integer) { //Color code
+
+					buttons[i] = new ButtonAreaClick(rectangles_buttons[i], "",
+							((Integer) answer).intValue(),
+							colour_of_question_and_buttons, colour_mark);
+				} else {
+
+					throw new UnsupportedOperationException();
+				}
 			}
 		}
 		
@@ -408,7 +428,8 @@ public class View_Question extends View {
 				}
 			}
 		}
-		
+
+
 		if (gameData.current_answered) {
 			
 			if (gameData.current_answered_correct) {
@@ -600,7 +621,7 @@ public class View_Question extends View {
 	public void setColourOfRectangleQuestionToNeutral() {
 		
 		if (gameData.current_question instanceof IConfigurationQuestion_TextQuestion) {
-			
+
 			int textColour = ((IConfigurationQuestion_TextQuestion) gameData.current_question).getQuestionColour();
 			if (textColour == -1) {
 				colour_of_rectangle_question = coloursCfg.getColour_Delimiter();
@@ -610,9 +631,23 @@ public class View_Question extends View {
 				} else {
 					colour_of_rectangle_question = Color.rgb(Color.red(textColour) / 4, Color.green(textColour) / 4, Color.blue(textColour) / 4);
 				}
-				
+
+			}
+		} else if (gameData.current_question instanceof IConfigurationQuestion_ImageQuestion) {
+
+			int color_area_and_text = ((IConfigurationQuestion_ImageQuestion) gameData.current_question).getColor_AreaAndText();
+
+			//Backward compatibility reasons - could be removed later e.g. in 1 year.
+			if (color_area_and_text == -1) {
+
+				colour_of_rectangle_question = coloursCfg.getColour_Delimiter();
+
+			} else {
+
+				colour_of_rectangle_question = color_area_and_text;
 			}
 		} else {
+
 			colour_of_rectangle_question = coloursCfg.getColour_Delimiter();
 		}
 		
