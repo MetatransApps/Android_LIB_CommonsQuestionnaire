@@ -111,13 +111,17 @@ public class View_Question extends View {
 		rectf_question_text = new RectF();
 		
 		rectf_button_center 		= new RectF();
-		
+
+
 		rectangles_buttons = new RectF[gameData.current_question.getAnswersCount()];
+
 		for (int i=0; i<rectangles_buttons.length; i++) {
 			rectangles_buttons[i] = new RectF();
 		}
-		
+
+
 		bitmaps_buttons = new Bitmap[gameData.current_question.getAnswersCount()];
+
 		for (int i=0; i<bitmaps_buttons.length; i++) {
 
 			if (gameData.current_question instanceof IConfigurationQuestion_ImageButtons) {
@@ -130,12 +134,17 @@ public class View_Question extends View {
 
 				} else {
 
-					bitmaps_buttons[i] = BitmapUtils.fromResource(getContext(), ((IConfigurationQuestion_ImageButtons)gameData.current_question).getResID_Answers()[i]);
+					bitmaps_buttons[i] = BitmapUtils.fromResource(getContext(), ((IConfigurationQuestion_ImageButtons) gameData.current_question).getResID_Answers()[i]);
 				}
+			} else if (gameData.current_question instanceof IConfigurationQuestion_TextButtons) {
+
+				int color = coloursCfg.getColour_Square_White();
+
+				bitmaps_buttons[i] = BitmapUtils.textAsBitmap(gameData.current_question.getAnswers()[i] + "", 10, color);
 
 			} else {
 
-				bitmaps_buttons[i] = BitmapUtils.textAsBitmap(((IConfigurationQuestion_TextButtons) gameData.current_question).getAnswers()[i] + "", 10, coloursCfg.getColour_Square_White());
+				throw new IllegalStateException();
 			}
 		}
 		
@@ -154,17 +163,18 @@ public class View_Question extends View {
 
 			IConfigurationQuestion_ImageQuestion cfg_question = (IConfigurationQuestion_ImageQuestion)gameData.current_question;
 
-			Bitmap bitmap = cfg_question.getQuestion();
+			Bitmap bitmap = (Bitmap) cfg_question.getQuestion();
 
 			bitmap_question = bitmap != null ? bitmap : BitmapUtils.fromResource(getContext(), cfg_question.getResID_Question());
 
 		} else {
 
-			int textColour = ((IConfigurationQuestion_TextQuestion) gameData.current_question).getQuestionColour();
+			int textColour = ((IConfigurationQuestion_TextQuestion) gameData.current_question).getColor_Question();
 			if (textColour == -1) {
 				textColour = coloursCfg.getColour_Square_White();	
 			}
-			bitmap_question = BitmapUtils.textAsBitmap(((IConfigurationQuestion_TextQuestion)gameData.current_question).getQuestion() + "", 10, textColour);
+
+			bitmap_question = BitmapUtils.textAsBitmap(gameData.current_question.getQuestion() + "", 10, textColour);
 		}
 		
 		rect_bitmap_question = new Rect(0, 0, bitmap_question.getWidth(), bitmap_question.getHeight());
@@ -345,7 +355,7 @@ public class View_Question extends View {
 		
 		if (gameData.current_question instanceof IConfigurationQuestion_TextQuestion) {
 			
-			int textColour = ((IConfigurationQuestion_TextQuestion) gameData.current_question).getQuestionColour();
+			int textColour = ((IConfigurationQuestion_TextQuestion) gameData.current_question).getColor_Question();
 			int areaColour;
 			if (textColour == -1) {
 				textColour = Color.WHITE;//coloursCfg.getColour_Square_White();
@@ -359,7 +369,7 @@ public class View_Question extends View {
 			}
 			
 			textarea_question_text = new TextArea(rectf_question_text,
-					((IConfigurationQuestion_TextQuestion) gameData.current_question).getQuestion(),
+					(String) gameData.current_question.getQuestion(),
 					areaColour,
 					textColour
 					);
@@ -391,7 +401,9 @@ public class View_Question extends View {
 			for (int i=0; i<buttons.length; i++) {
 
 				int colour_mark = (i == gameData.current_question.getIndexCorrect()) ? coloursCfg.getColour_Square_ValidSelection() : coloursCfg.getColour_Square_InvalidSelection();
-				buttons[i] = new ButtonAreaClick_Image(rectangles_buttons[i], bitmaps_buttons[i], coloursCfg.getColour_Square_Black(), colour_mark);
+				buttons[i] = new ButtonAreaClick_Image(rectangles_buttons[i], bitmaps_buttons[i],
+						coloursCfg.getColour_Square_Black(),
+						colour_mark);
 			}
 
 		} else {
@@ -622,20 +634,26 @@ public class View_Question extends View {
 		
 		if (gameData.current_question instanceof IConfigurationQuestion_TextQuestion) {
 
-			int textColour = ((IConfigurationQuestion_TextQuestion) gameData.current_question).getQuestionColour();
+			int textColour = ((IConfigurationQuestion_TextQuestion) gameData.current_question).getColor_Question();
+
 			if (textColour == -1) {
+
 				colour_of_rectangle_question = coloursCfg.getColour_Delimiter();
+
 			} else {
+
 				if (gameData.current_question instanceof IConfigurationQuestion_TextButtons) {
+
 					colour_of_rectangle_question = coloursCfg.getColour_Delimiter();
+
 				} else {
+
 					colour_of_rectangle_question = Color.rgb(Color.red(textColour) / 4, Color.green(textColour) / 4, Color.blue(textColour) / 4);
 				}
-
 			}
 		} else if (gameData.current_question instanceof IConfigurationQuestion_ImageQuestion) {
 
-			int color_area_and_text = ((IConfigurationQuestion_ImageQuestion) gameData.current_question).getColor_AreaAndText();
+			int color_area_and_text = ((IConfigurationQuestion_ImageQuestion) gameData.current_question).getColor_Area();
 
 			//Backward compatibility reasons - could be removed later e.g. in 1 year.
 			if (color_area_and_text == -1) {

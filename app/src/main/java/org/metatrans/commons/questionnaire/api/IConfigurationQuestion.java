@@ -5,13 +5,18 @@ import java.io.Serializable;
 
 
 public interface IConfigurationQuestion extends Serializable {
-	
-	public long getID();
-	public int getName();
-	
-	public int getAnswersCount();
-	public int getIndexCorrect();
-	public Object[] getAnswers();
-	
-	public void shuffle();
+
+	long getID();
+
+	int getName();
+
+	int getAnswersCount();
+
+	int getIndexCorrect();
+
+	Object getQuestion();
+
+	Object[] getAnswers();
+
+	void shuffle();
 }

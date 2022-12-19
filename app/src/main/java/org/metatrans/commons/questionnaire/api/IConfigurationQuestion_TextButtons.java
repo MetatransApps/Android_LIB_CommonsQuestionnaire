@@ -2,7 +2,10 @@ package org.metatrans.commons.questionnaire.api;
 
 
 public interface IConfigurationQuestion_TextButtons extends IConfigurationQuestion {
-	
-	public Object[] getAnswers();
-	
+
+	Object[] getAnswers();
+
+	int getColor_Text();
+
+	int getColor_Button();
 }
