@@ -176,9 +176,11 @@ public class View_Question extends View {
 
 			bitmap_question = BitmapUtils.textAsBitmap(gameData.current_question.getQuestion() + "", 10, textColour);
 		}
-		
-		rect_bitmap_question = new Rect(0, 0, bitmap_question.getWidth(), bitmap_question.getHeight());
-		
+
+		if (bitmap_question != null) {
+
+			rect_bitmap_question = new Rect(0, 0, bitmap_question.getWidth(), bitmap_question.getHeight());
+		}
 		
 		rectf_leaderboards = new RectF();
 		
@@ -277,7 +279,8 @@ public class View_Question extends View {
 		rectf_question_image.bottom = rectf_question.bottom - MARGIN1;
 		
 		//Handle image case
-		if (gameData.current_question instanceof IConfigurationQuestion_ImageQuestion){
+		if (gameData.current_question instanceof IConfigurationQuestion_ImageQuestion
+				&& bitmap_question != null){
 			
 			float x_image = bitmap_question.getWidth();
 			float y_image = bitmap_question.getHeight();
@@ -714,11 +717,12 @@ public class View_Question extends View {
 		button_menu_new.draw(canvas);
 		button_menu_menu.draw(canvas);
 		
-		if (gameData.current_question instanceof IConfigurationQuestion_ImageQuestion) {
+		if (gameData.current_question instanceof IConfigurationQuestion_ImageQuestion
+			&& bitmap_question != null) {
 			
 			canvas.drawBitmap(bitmap_question, rect_bitmap_question, rectf_question_image, paint_background);
 			
-		} else {
+		} else if (textarea_question_text != null) {
 			
 			textarea_question_text.draw(canvas);
 		}
