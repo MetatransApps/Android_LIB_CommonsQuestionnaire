@@ -144,8 +144,6 @@ public abstract class Activity_Question extends Activity_Base_Questionnaire impl
 		Application_Base.getInstance().recreateGameDataObject();
 		
 		nextQuestion();
-
-		Application_Base_Ads.getInstance().openInterstitial();
 	}
 
 	
@@ -256,7 +254,7 @@ public abstract class Activity_Question extends Activity_Base_Questionnaire impl
 					((Application_Base_Ads)getApplication()).getEngagementProvider().getLeaderboardsProvider().submitLeaderboardScore(getUserSettings().modeID, time_to2submit);
 				}
 
-				GameResult best_result_for_this_mode = getBestResults().getResult(getUserSettings().modeID);
+				//ameResult best_result_for_this_mode = getBestResults().getResult(getUserSettings().modeID);
 
 				//if (best_result_for_this_mode.isTheOtherBetter(getGameData().getGameResult())) {
 
@@ -267,7 +265,12 @@ public abstract class Activity_Question extends Activity_Base_Questionnaire impl
 				
 				((Application_Base_Ads)getApplication()).getEngagementProvider().getSocialProvider().connect();
 			}
-			
+
+
+			//TODO: If the ad is not opened and game end, than make sure the game is paused before opening the interstitial ad!
+			Application_Base_Ads.getInstance().openInterstitial();
+
+
 		} else {
 
 			openQuestion(next_question);

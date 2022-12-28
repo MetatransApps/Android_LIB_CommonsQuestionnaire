@@ -3,6 +3,7 @@ package org.metatrans.commons.questionnaire.main;
 
 import org.metatrans.commons.Alerts_Base;
 import org.metatrans.commons.app.Application_Base;
+import org.metatrans.commons.app.Application_Base_Ads;
 import org.metatrans.commons.cfg.sound.IConfigurationSound;
 import org.metatrans.commons.questionnaire.R;
 import org.metatrans.commons.questionnaire.model.GameData;
@@ -303,7 +304,7 @@ public class OnTouchListener_Question implements OnTouchListener {
 				//Increase level
 				((Activity_Question) view.getContext()).setNextLevel();
 			}
-			
+
 			((Activity_Question)view.getContext()).startNewGame();
 		}
 	}
