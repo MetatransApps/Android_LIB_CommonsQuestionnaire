@@ -126,9 +126,14 @@ public class Activity_Menu_Sound extends Activity_Base {
 		((UserSettings)Application_Base.getInstance().getUserSettings()).sound_cfg_id = new_sound_cfg_id;
 		
 		((Application_Base)getApplication()).storeUserSettings();
-		
+
+		IConfigurationSound cfg_sound = ConfigurationUtils_Sound.getConfigByID(new_sound_cfg_id);
+
 		IEventsManager eventsManager = Application_Base.getInstance().getEventsManager();
-		eventsManager.register(this, eventsManager.create(IEvent_Base.MENU_OPERATION, IEvent_Base.MENU_OPERATION_CHANGE_SOUND, new_sound_cfg_id,
-				"MENU_OPERATION", "CHANGE_SOUND", "" + new_sound_cfg_id));
+		eventsManager.register(this,
+				IEvent_Base.EVENT_MENU_OPERATION_CHANGE_SOUND.createByVarianceInCategory3(
+						new_sound_cfg_id, getString(cfg_sound.getName())
+				)
+		);
 	}
 }
