@@ -29,7 +29,7 @@ public class GameData extends GameData_Base {
 	}
 	
 	
-	public void clear() {
+	protected void clear() {
 
 		count_answered 			= 0;
 		count_correct 			= 0;

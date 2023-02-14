@@ -79,16 +79,18 @@ public abstract class Activity_Result extends Activity_Base_Questionnaire {
 	
 	public void startNewGame() {
 
+		//Must be overrided
+		//TODO: make it abstract
 		if (true) {
 
 			throw new IllegalStateException("startNewGame");
 		}
 
-		IEventsManager eventsManager = Application_Base.getInstance().getEventsManager();
-		
+		/*IEventsManager eventsManager = Application_Base.getInstance().getEventsManager();
+
 		eventsManager.handleGameEvents_OnExit(this, getGameData(), getUserSettings());
-		
-		Application_Base.getInstance().recreateGameDataObject();
+
+		Application_Base.getInstance().recreateGameDataObject();*/
 	}
 	
 	

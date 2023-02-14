@@ -36,9 +36,6 @@ public abstract class Activity_Question extends Activity_Base_Questionnaire impl
 	protected abstract View createView();
 
 
-	protected abstract IConfigurationQuestion getNextQuestion();
-
-
 	protected abstract Class<? extends Activity_Base> getActivityClass_Menu();
 
 
@@ -64,10 +61,6 @@ public abstract class Activity_Question extends Activity_Base_Questionnaire impl
 		//Toast_Base.showToast_InCenter(this, "onResume: timestamp_resume=" + timestamp_resume);
 		
 		timestamp_resume = System.currentTimeMillis();
-		
-		if (getGameData().current_question == null) {
-			getGameData().current_question = getNextQuestion();
-		}
 		
 		setContentView(R.layout.activity_question);
 		
@@ -194,7 +187,7 @@ public abstract class Activity_Question extends Activity_Base_Questionnaire impl
 	
 	public void nextQuestion() {
 		
-		IConfigurationQuestion next_question = getNextQuestion();
+		IConfigurationQuestion next_question = getNextQuestion(getGameData());
 		
 		boolean gameCompleted = next_question == null;
 		

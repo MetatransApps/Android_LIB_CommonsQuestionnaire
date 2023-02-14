@@ -24,7 +24,7 @@ public class OnTouchListener_Question implements OnTouchListener {
 	
 	private View_Question view;
 
-	private boolean sound_enabled;
+	//private boolean sound_enabled;
 
 	private MediaPlayer audio_player_correct;
 	private MediaPlayer audio_player_incorrect;
@@ -34,21 +34,10 @@ public class OnTouchListener_Question implements OnTouchListener {
 		
 		view = _view;
 
-		sound_enabled = ((UserSettings) Application_Base.getInstance().getUserSettings()).sound_cfg_id
-							== IConfigurationSound.CFG_SOUND_ON;
-
-		if (sound_enabled) {
-
-			//TODO: Check STREAM_MUSIC ? Use STREAM_ALARM for a while ...
-			audio_player_correct = MediaPlayer.create(view.getContext(), R.raw.sound_correct);
-			audio_player_correct.setAudioStreamType(AudioManager.STREAM_MUSIC);
-
-			audio_player_incorrect = MediaPlayer.create(view.getContext(), R.raw.sound_incorrect);
-			audio_player_incorrect.setAudioStreamType(AudioManager.STREAM_MUSIC);
-		}
+		initSound();
 	}
-	
-	
+
+
 	private GameData getGameData() {
 		return (GameData) ((Activity_Question)view.getContext()).getGameData();
 	}
@@ -143,8 +132,32 @@ public class OnTouchListener_Question implements OnTouchListener {
 			}
 		}
 	}
-	
-	
+
+
+	private void initSound() {
+
+		try {
+
+			boolean sound_enabled = ((UserSettings) Application_Base.getInstance().getUserSettings()).sound_cfg_id
+					== IConfigurationSound.CFG_SOUND_ON;
+
+			if (sound_enabled) {
+
+				//TODO: Check STREAM_MUSIC ? Use STREAM_ALARM for a while ...
+				audio_player_correct = MediaPlayer.create(view.getContext(), R.raw.sound_correct);
+				audio_player_correct.setAudioStreamType(AudioManager.STREAM_MUSIC);
+
+				audio_player_incorrect = MediaPlayer.create(view.getContext(), R.raw.sound_incorrect);
+				audio_player_incorrect.setAudioStreamType(AudioManager.STREAM_MUSIC);
+			}
+
+		} catch (Exception e) {
+
+			e.printStackTrace();
+		}
+	}
+
+
 	private void processEvent_MOVE(MotionEvent event) {
 		
 		

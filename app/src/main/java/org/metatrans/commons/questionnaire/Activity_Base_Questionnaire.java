@@ -3,6 +3,7 @@ package org.metatrans.commons.questionnaire;
 
 import org.metatrans.commons.Activity_Base_Ads_Banner;
 import org.metatrans.commons.app.Application_Base;
+import org.metatrans.commons.questionnaire.api.IConfigurationQuestion;
 import org.metatrans.commons.questionnaire.model.BestResults;
 import org.metatrans.commons.questionnaire.model.GameData;
 import org.metatrans.commons.questionnaire.model.UserSettings;
@@ -33,8 +34,21 @@ public abstract class Activity_Base_Questionnaire extends Activity_Base_Ads_Bann
 		getUserSettings();
 		getBestResults();
 	}
-	
-	
+
+
+	protected IConfigurationQuestion getNextQuestion(GameData gameData) {
+
+		//Must be overrided
+		//TODO: make it abstract
+		if (true) {
+
+			throw new IllegalStateException("startNewGame");
+		}
+
+		return null;
+	}
+
+
 	protected void storeData() {
 
 		Application_Base.getInstance().storeUserSettings();;
@@ -47,18 +61,16 @@ public abstract class Activity_Base_Questionnaire extends Activity_Base_Ads_Bann
 
 	public GameData getGameData() {
 
-		try {
+		GameData game_data = (GameData) Application_Base.getInstance().getGameData();
 
-			return (GameData) Application_Base.getInstance().getGameData();
+		if (game_data.current_question == null) {
 
-		} catch (Exception e) {
+			IConfigurationQuestion next_question = getNextQuestion(game_data);
 
-			e.printStackTrace();
-
-			Application_Base.getInstance().recreateGameDataObject();
-
-			return (GameData) Application_Base.getInstance().getGameData();
+			game_data.clearForNewQuestion(next_question);
 		}
+
+		return game_data;
 	}
 	
 	
