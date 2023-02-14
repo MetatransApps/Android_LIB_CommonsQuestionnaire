@@ -13,6 +13,7 @@ import org.metatrans.commons.events.api.IEventsManager;
 import org.metatrans.commons.questionnaire.Activity_Base_Questionnaire;
 import org.metatrans.commons.questionnaire.R;
 import org.metatrans.commons.questionnaire.api.IConfigurationQuestion;
+import org.metatrans.commons.questionnaire.model.GameData;
 import org.metatrans.commons.questionnaire.model.GameResult;
 
 import android.content.Intent;
@@ -186,10 +187,18 @@ public abstract class Activity_Question extends Activity_Base_Questionnaire impl
 	
 	
 	public void nextQuestion() {
-		
-		IConfigurationQuestion next_question = getNextQuestion(getGameData());
-		
+
+		GameData gameData = getGameData();
+
+		IConfigurationQuestion next_question = getNextQuestion(gameData);
+
 		boolean gameCompleted = next_question == null;
+
+		if (!gameCompleted
+				&& gameData.count_answered >= getUserSettings().countQuestions) {
+
+			gameCompleted = true;
+		}
 		
 		setUpLeaderboard(gameCompleted);
 
