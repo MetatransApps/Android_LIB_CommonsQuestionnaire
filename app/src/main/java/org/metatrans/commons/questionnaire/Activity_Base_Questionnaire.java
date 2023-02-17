@@ -30,7 +30,7 @@ public abstract class Activity_Base_Questionnaire extends Activity_Base_Ads_Bann
 		
 		super.onResume();
 		
-		getGameData();
+		//getGameData();
 		getUserSettings();
 		getBestResults();
 	}
