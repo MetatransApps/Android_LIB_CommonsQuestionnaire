@@ -52,7 +52,12 @@ public abstract class Activity_Question extends Activity_Base_Questionnaire impl
 	protected void onCreate(Bundle savedInstanceState) {
 		
 		super.onCreate(savedInstanceState);
-		
+
+		//Initialize Ads SDKs, including getting Consent where necessary.
+		if (Application_Base.getInstance() instanceof Application_Base_Ads) {
+
+			Application_Base_Ads.getInstance().getAdsManager().requestConsentInfoUpdate(this);
+		}
 	}
 	
 	

@@ -9,7 +9,6 @@ import org.metatrans.commons.cfg.menu.Config_MenuMain_Base;
 import org.metatrans.commons.cfg.menu.IConfigurationMenu_Main;
 import org.metatrans.commons.cfg.sound.ConfigurationUtils_Sound;
 import org.metatrans.commons.cfg.sound.IConfigurationSound;
-import org.metatrans.commons.menu.Activity_Menu_Colours_Base;
 import org.metatrans.commons.menu.Activity_Menu_Main_Base;
 import org.metatrans.commons.questionnaire.R;
 import org.metatrans.commons.questionnaire.model.UserSettings;
@@ -24,6 +23,8 @@ public class Activity_Menu_Main extends Activity_Menu_Main_Base {
 	public static int CFG_MENU_SOUND		 			= 13;
 	public static int CFG_MENU_RESULT			 		= 16;
 	public static int CFG_MENU_ACHIEVEMENTS		 		= 17;
+
+	public static int CFG_MENU_STOP_ADS		 			= 137;
 
 
 	@Override
@@ -136,6 +137,43 @@ public class Activity_Menu_Main extends Activity_Menu_Main_Base {
 						Application_Base.getInstance().getEngagementProvider().getLeaderboardsProvider().openLeaderboard_LocalOnly(modeID);
 
 						Application_Base.getInstance().getEngagementProvider().getLeaderboardsProvider().openLeaderboard(modeID);
+					}
+				};
+			}
+		});
+
+
+		result.add(new Config_MenuMain_Base() {
+
+			@Override
+			public int getName() {
+				return R.string.new_stopads_title;
+			}
+
+			@Override
+			public int getIconResID() {
+				return R.drawable.ic_action_tv;
+			}
+
+			@Override
+			public int getID() {
+				return CFG_MENU_STOP_ADS;
+			}
+
+			@Override
+			public String getDescription_String() {
+				return getString(R.string.new_stopads_desc);
+			}
+
+			@Override
+			public Runnable getAction() {
+
+				return new Runnable() {
+
+					@Override
+					public void run() {
+
+						Activity_Menu_Main.this.openRewardedVideo();
 					}
 				};
 			}
