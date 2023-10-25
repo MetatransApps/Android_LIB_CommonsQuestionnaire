@@ -34,7 +34,7 @@ public class Activity_Menu_Sound extends Activity_Base {
 	public void onCreate(Bundle savedInstanceState) {
 		
 
-		System.out.println("Activity_Menu_Colours_Base: onCreate()");
+		System.out.println("Activity_Menu_Sound: onCreate()");
 		
 		super.onCreate(savedInstanceState);
 
