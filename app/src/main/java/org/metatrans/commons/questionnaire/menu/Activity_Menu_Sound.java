@@ -39,7 +39,7 @@ public class Activity_Menu_Sound extends Activity_Base {
 		super.onCreate(savedInstanceState);
 
 
-		int sound_cfg_id = ((UserSettings)Application_Base.getInstance().getUserSettings()).sound_cfg_id;
+		int sound_cfg_id = ((UserSettings)Application_Base.getInstance().getUserSettings()).common_sound_cfg_id;
 
 		int currOrderNumber = ConfigurationUtils_Sound.getOrderNumber(sound_cfg_id);
 
@@ -103,7 +103,7 @@ public class Activity_Menu_Sound extends Activity_Base {
 			
 			//System.out.println("ColoursSelection POS=" + position + ", id=" + id);
 
-			int sound_cfg_id = ((UserSettings)Application_Base.getInstance().getUserSettings()).sound_cfg_id;
+			int sound_cfg_id = ((UserSettings)Application_Base.getInstance().getUserSettings()).common_sound_cfg_id;
 
 			int currOrderNumber = ConfigurationUtils_Sound.getOrderNumber(sound_cfg_id);
 
@@ -123,7 +123,7 @@ public class Activity_Menu_Sound extends Activity_Base {
 	
 	public void changeSound(int new_sound_cfg_id) {
 
-		((UserSettings)Application_Base.getInstance().getUserSettings()).sound_cfg_id = new_sound_cfg_id;
+		((UserSettings)Application_Base.getInstance().getUserSettings()).common_sound_cfg_id = new_sound_cfg_id;
 		
 		((Application_Base)getApplication()).storeUserSettings();
 

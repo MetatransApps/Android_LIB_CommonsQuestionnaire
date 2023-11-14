@@ -3,7 +3,6 @@ package org.metatrans.commons.questionnaire.main;
 
 import org.metatrans.commons.Alerts_Base;
 import org.metatrans.commons.app.Application_Base;
-import org.metatrans.commons.app.Application_Base_Ads;
 import org.metatrans.commons.cfg.sound.IConfigurationSound;
 import org.metatrans.commons.questionnaire.R;
 import org.metatrans.commons.questionnaire.model.GameData;
@@ -138,7 +137,7 @@ public class OnTouchListener_Question implements OnTouchListener {
 
 		try {
 
-			boolean sound_enabled = ((UserSettings) Application_Base.getInstance().getUserSettings()).sound_cfg_id
+			boolean sound_enabled = ((UserSettings) Application_Base.getInstance().getUserSettings()).common_sound_cfg_id
 					== IConfigurationSound.CFG_SOUND_ON;
 
 			if (sound_enabled) {

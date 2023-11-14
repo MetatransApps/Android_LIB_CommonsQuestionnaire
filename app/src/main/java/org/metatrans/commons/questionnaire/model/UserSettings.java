@@ -6,6 +6,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
 import org.metatrans.commons.cfg.colours.IConfigurationColours;
+import org.metatrans.commons.cfg.sound.IConfigurationSound;
 import org.metatrans.commons.model.UserSettings_Base;
 
 
@@ -58,6 +59,9 @@ public class UserSettings extends UserSettings_Base {
 		if (countQuestions == 0) {
 			countQuestions = 30;
 			System.out.println(this.getClass().getName() + " : " + op + " - updating countQuestions");
+		}
+		if (sound_cfg_id == IConfigurationSound.CFG_SOUND_ON) {
+			common_sound_cfg_id = IConfigurationSound.CFG_SOUND_ON;
 		}
 	}
 }

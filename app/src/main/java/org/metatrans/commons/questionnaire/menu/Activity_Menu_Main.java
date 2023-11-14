@@ -45,7 +45,7 @@ public class Activity_Menu_Main extends Activity_Menu_Main_Base {
 			@Override
 			public int getIconResID() {
 
-				int sound_cfg_id = ((UserSettings)Application_Base.getInstance().getUserSettings()).sound_cfg_id;
+				int sound_cfg_id = ((UserSettings)Application_Base.getInstance().getUserSettings()).common_sound_cfg_id;
 
 				if (sound_cfg_id == IConfigurationSound.CFG_SOUND_ON) {
 
@@ -66,7 +66,7 @@ public class Activity_Menu_Main extends Activity_Menu_Main_Base {
 			@Override
 			public String getDescription_String() {
 
-				int sound_cfg_id = ((UserSettings)Application_Base.getInstance().getUserSettings()).sound_cfg_id;
+				int sound_cfg_id = ((UserSettings)Application_Base.getInstance().getUserSettings()).common_sound_cfg_id;
 
 				if (sound_cfg_id == IConfigurationSound.CFG_SOUND_ON) {
 
