@@ -10,6 +10,7 @@ import org.metatrans.commons.cfg.menu.IConfigurationMenu_Main;
 import org.metatrans.commons.cfg.sound.ConfigurationUtils_Sound;
 import org.metatrans.commons.cfg.sound.IConfigurationSound;
 import org.metatrans.commons.menu.Activity_Menu_Main_Base;
+import org.metatrans.commons.menu.Activity_Menu_Sound;
 import org.metatrans.commons.questionnaire.R;
 import org.metatrans.commons.questionnaire.model.UserSettings;
 
