@@ -6,6 +6,7 @@ import android.content.Intent;
 
 import org.metatrans.commons.app.Application_Base;
 import org.metatrans.commons.cfg.menu.Config_MenuMain_Base;
+import org.metatrans.commons.cfg.menu.Config_MenuMain_Melody;
 import org.metatrans.commons.cfg.menu.IConfigurationMenu_Main;
 import org.metatrans.commons.cfg.sound.Config_MenuMain_Sound;
 import org.metatrans.commons.cfg.sound.ConfigurationUtils_Sound;
@@ -34,9 +35,6 @@ public class Activity_Menu_Main extends Activity_Menu_Main_Base {
 
 
 		List<IConfigurationMenu_Main> result = new ArrayList<IConfigurationMenu_Main>();
-
-
-		result.add(new Config_MenuMain_Sound());
 
 
 		result.add(new Config_MenuMain_Base() {
@@ -117,6 +115,16 @@ public class Activity_Menu_Main extends Activity_Menu_Main_Base {
 				}
 			});
 		}
+
+
+		result.add(new Config_MenuMain_Sound());
+
+
+		if (Application_Base.getInstance().supportMelodies()) {
+
+			result.add(new Config_MenuMain_Melody());
+		}
+
 
 		result.add(new Config_MenuMain_Base() {
 
