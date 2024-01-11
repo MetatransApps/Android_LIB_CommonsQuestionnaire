@@ -3,32 +3,27 @@ package org.metatrans.commons.questionnaire.main;
 
 import org.metatrans.commons.Alerts_Base;
 import org.metatrans.commons.app.Application_Base;
-import org.metatrans.commons.cfg.sound.IConfigurationSound;
 import org.metatrans.commons.questionnaire.R;
 import org.metatrans.commons.questionnaire.model.GameData;
-import org.metatrans.commons.questionnaire.model.UserSettings;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.media.AudioManager;
-import android.media.MediaPlayer;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
 
 
-public class OnTouchListener_Question implements OnTouchListener {
+public abstract class OnTouchListener_Question implements OnTouchListener {
 	
 	
 	private View_Question view;
-
-	//private boolean sound_enabled;
-
-	private MediaPlayer audio_player_correct;
-	private MediaPlayer audio_player_incorrect;
 	
-	
+
+	public abstract int getSFX_AnswerCorrect_ResID();
+
+	public abstract int getSFX_AnswerWrong_ResID();
+
 	public OnTouchListener_Question(View_Question _view) {
 		
 		view = _view;
@@ -111,14 +106,14 @@ public class OnTouchListener_Question implements OnTouchListener {
 				if (getGameData().isCorrectAnswer(index)) {
 
 					view.setColourOfRectangleQuestionToValid();
-					
-					if (audio_player_correct != null) audio_player_correct.start();
+
+					Application_Base.getInstance().getSFXManager().playSound(getSFX_AnswerCorrect_ResID());
 					
 				} else {
 
 					view.setColourOfRectangleQuestionToInValid();
 
-					if (audio_player_incorrect != null) audio_player_incorrect.start();
+					Application_Base.getInstance().getSFXManager().playSound(getSFX_AnswerWrong_ResID());
 				}
 			}
 		}
@@ -135,25 +130,6 @@ public class OnTouchListener_Question implements OnTouchListener {
 
 	private void initSound() {
 
-		try {
-
-			boolean sound_enabled = ((UserSettings) Application_Base.getInstance().getUserSettings()).common_sound_cfg_id
-					== IConfigurationSound.CFG_SOUND_ON;
-
-			if (sound_enabled) {
-
-				//TODO: Check STREAM_MUSIC ? Use STREAM_ALARM for a while ...
-				audio_player_correct = MediaPlayer.create(view.getContext(), R.raw.sound_correct);
-				audio_player_correct.setAudioStreamType(AudioManager.STREAM_MUSIC);
-
-				audio_player_incorrect = MediaPlayer.create(view.getContext(), R.raw.sound_incorrect);
-				audio_player_incorrect.setAudioStreamType(AudioManager.STREAM_MUSIC);
-			}
-
-		} catch (Exception e) {
-
-			e.printStackTrace();
-		}
 	}
 
 
@@ -252,6 +228,8 @@ public class OnTouchListener_Question implements OnTouchListener {
 
 				if (view.getLeaderboard() != null) {
 
+					Application_Base.getInstance().getSFXManager().playSound(R.raw.sfx_button_pressed_1);
+
 					view.getLeaderboard().onTouch(view, event);
 
 					return;
@@ -261,7 +239,9 @@ public class OnTouchListener_Question implements OnTouchListener {
 		
 		
 		if (view.isOverButton_New(x, y)) {
-			
+
+			Application_Base.getInstance().getSFXManager().playSound(R.raw.sfx_button_pressed_1);
+
 			view.deselectButton_New();
 			
 			AlertDialog.Builder adb = Alerts_Base.createAlertDialog_LoseGame(view.getContext(),
@@ -277,7 +257,9 @@ public class OnTouchListener_Question implements OnTouchListener {
 			adb.show();
 			
 		} else if (view.isOverButton_Menu(x, y)) {
-			
+
+			Application_Base.getInstance().getSFXManager().playSound(R.raw.sfx_button_pressed_1);
+
 			view.deselectButton_Menu();
 			
 			Intent i = new Intent(view.getContext(), ((Activity_Question)view.getContext()).getActivityClass_Menu());
@@ -310,7 +292,9 @@ public class OnTouchListener_Question implements OnTouchListener {
 		view.deselectCentralButton();
 		
 		if (getGameData().isCountedAsCompleted() && view.isOverCentralButton(x, y)) {
-			
+
+			Application_Base.getInstance().getSFXManager().playSound(R.raw.sfx_button_pressed_1);
+
 			if (getGameData().count_correct == getGameData().count_answered) {
 
 				//Increase level

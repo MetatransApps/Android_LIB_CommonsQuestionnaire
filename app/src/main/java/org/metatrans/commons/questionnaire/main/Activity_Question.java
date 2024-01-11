@@ -5,7 +5,6 @@ import java.util.Arrays;
 
 import org.metatrans.commons.Activity_Base;
 import org.metatrans.commons.ads.api.IAdsConfiguration;
-import org.metatrans.commons.ads.impl.flow.IAdLoadFlow;
 import org.metatrans.commons.app.Application_Base;
 import org.metatrans.commons.app.Application_Base_Ads;
 import org.metatrans.commons.IActivityInterstitial;
@@ -32,8 +31,14 @@ public abstract class Activity_Question extends Activity_Base_Questionnaire impl
 
 
 	private long timestamp_resume;
-	
-	
+
+
+	public abstract int getSFX_GameStart_ResID();
+
+
+	public abstract int getSFX_GameEnd_ResID();
+
+
 	protected abstract View createView();
 
 
@@ -133,7 +138,9 @@ public abstract class Activity_Question extends Activity_Base_Questionnaire impl
 
 
 	public void startNewGame() {
-		
+
+		Application_Base.getInstance().getSFXManager().playSound(getSFX_GameStart_ResID());
+
 		IEventsManager eventsManager = Application_Base.getInstance().getEventsManager();
 		
 		eventsManager.handleGameEvents_OnExit(this, getGameData(), getUserSettings());
@@ -214,6 +221,8 @@ public abstract class Activity_Question extends Activity_Base_Questionnaire impl
 			System.out.println("Activity_Question.nextQuestion: getGameData().isCountedAsCompleted()=" + getGameData().isCountedAsCompleted());
 
 			if (!getGameData().isCountedAsCompleted()) {
+
+				Application_Base.getInstance().getSFXManager().playSound(getSFX_GameEnd_ResID());
 
 				long lastPeriodInsideTheMainScreen = System.currentTimeMillis() - timestamp_resume;
 				getGameData().addAccumulated_time_inmainscreen(lastPeriodInsideTheMainScreen);
