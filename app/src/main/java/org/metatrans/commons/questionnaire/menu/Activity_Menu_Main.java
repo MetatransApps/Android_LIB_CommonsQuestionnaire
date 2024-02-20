@@ -1,20 +1,13 @@
 package org.metatrans.commons.questionnaire.menu;
 
 
-import android.app.Activity;
-import android.content.Intent;
-
 import org.metatrans.commons.app.Application_Base;
 import org.metatrans.commons.cfg.menu.Config_MenuMain_Base;
 import org.metatrans.commons.cfg.menu.Config_MenuMain_Melody;
 import org.metatrans.commons.cfg.menu.IConfigurationMenu_Main;
 import org.metatrans.commons.cfg.sound.Config_MenuMain_Sound;
-import org.metatrans.commons.cfg.sound.ConfigurationUtils_Sound;
-import org.metatrans.commons.cfg.sound.IConfigurationSound;
 import org.metatrans.commons.menu.Activity_Menu_Main_Base;
-import org.metatrans.commons.menu.Activity_Menu_Sound;
 import org.metatrans.commons.questionnaire.R;
-import org.metatrans.commons.questionnaire.model.UserSettings;
 
 import java.util.ArrayList;
 import java.util.List;
