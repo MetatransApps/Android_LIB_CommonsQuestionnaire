@@ -3,6 +3,9 @@ plugins {
 }
 
 android {
+
+    namespace "org.metatrans.commons.questionnaire"
+
     compileSdkVersion 30
     buildToolsVersion "30.0.3"
 
