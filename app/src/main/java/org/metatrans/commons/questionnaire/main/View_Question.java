@@ -17,6 +17,7 @@ import org.metatrans.commons.ui.IButtonArea;
 import org.metatrans.commons.ui.TextArea;
 import org.metatrans.commons.ui.utils.BitmapUtils;
 import org.metatrans.commons.ui.utils.DrawingUtils;
+import org.metatrans.commons.ui.utils.ScreenUtils;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -207,9 +208,10 @@ public class View_Question extends View {
 	
 	
 	private void initializeDimensions() {
-		
-		int main_width = getMeasuredWidth();
-		int main_height = getMeasuredHeight();
+
+		int[] screen_size = ScreenUtils.getScreenSize(getContext());
+		int main_width = screen_size[0]; //getMeasuredWidth();
+		int main_height = screen_size[1]; //getMeasuredHeight();
 		
 		//int segments = 8;
 
