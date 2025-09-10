@@ -239,14 +239,9 @@ public abstract class Activity_Question extends Activity_Base_Questionnaire impl
 			}
 
 
-			//TODO: If the ad is not opened at game end (e.g. if it is opened after start of the game), than make sure the game is paused before opening the interstitial ad!
-			//Currently the ad is opened before the opening of the results screen, otherwise the logic in Application_Base_Ads.openInterstitial() doesn't work correctly.
-			Application_Base_Ads.getInstance().openInterstitial();
-
-
 			((Application_Base_Ads)getApplication()).getEngagementProvider().getLeaderboardsProvider().openLeaderboard_LocalOnly(getUserSettings().modeID);
-			
-			
+
+
 			//Submit score and open Leaderboards (or connect, if not)
 			if (((Application_Base_Ads)getApplication()).getEngagementProvider().getSocialProvider().isConnected()) {
 				
@@ -281,6 +276,11 @@ public abstract class Activity_Question extends Activity_Base_Questionnaire impl
 
 					((Application_Base_Ads)getApplication()).getEngagementProvider().getLeaderboardsProvider().openLeaderboard(getUserSettings().modeID);
 				//}
+
+
+				//TODO: If the ad is not opened at game end (e.g. if it is opened after start of the game), than make sure the game is paused before opening the interstitial ad!
+				//Currently the ad is opened before the opening of the results screen, otherwise the logic in Application_Base_Ads.openInterstitial() doesn't work correctly.
+				Application_Base_Ads.getInstance().openInterstitial();
 				
 			} else {
 				
