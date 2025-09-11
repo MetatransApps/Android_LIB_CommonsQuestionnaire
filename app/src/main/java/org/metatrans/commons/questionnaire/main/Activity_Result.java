@@ -1,15 +1,14 @@
 package org.metatrans.commons.questionnaire.main;
 
 
-import org.metatrans.commons.app.Application_Base;
 import org.metatrans.commons.app.Application_Base_Ads;
 import org.metatrans.commons.cfg.colours.ConfigurationUtils_Colours;
 import org.metatrans.commons.cfg.colours.IConfigurationColours;
 import org.metatrans.commons.engagement.social.View_Social_InviteFriends;
-import org.metatrans.commons.events.api.IEventsManager;
 import org.metatrans.commons.questionnaire.Activity_Base_Questionnaire;
 import org.metatrans.commons.questionnaire.R;
 
+import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.View;
@@ -29,7 +28,7 @@ public abstract class Activity_Result extends Activity_Base_Questionnaire {
 	protected void onCreate(Bundle savedInstanceState) {
 		
 		super.onCreate(savedInstanceState);
-		
+
 	}
 	
 	
@@ -92,11 +91,13 @@ public abstract class Activity_Result extends Activity_Base_Questionnaire {
 
 		Application_Base.getInstance().recreateGameDataObject();*/
 	}
-	
-	
+
+
 	@Override
 	public void onConfigurationChanged(Configuration newConfig) {
 
-	    super.onConfigurationChanged(newConfig);
+		super.onConfigurationChanged(newConfig);
+
+		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 	}
 }
