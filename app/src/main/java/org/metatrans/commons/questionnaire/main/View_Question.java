@@ -636,7 +636,7 @@ public class View_Question extends View {
 	
 	
 	public void setColourOfRectangleQuestionToNeutral() {
-		
+
 		if (gameData.current_question instanceof IConfigurationQuestion_TextQuestion) {
 
 			int textColour = ((IConfigurationQuestion_TextQuestion) gameData.current_question).getColor_Question();
@@ -667,7 +667,7 @@ public class View_Question extends View {
 
 			} else {
 
-				colour_of_rectangle_question = color_area_and_text;
+				colour_of_rectangle_question = doColoringOfQuestionArea() ? color_area_and_text : coloursCfg.getColour_Delimiter();
 			}
 		} else {
 
@@ -676,8 +676,14 @@ public class View_Question extends View {
 		
 		invalidate();
 	}
-	
-	
+
+
+	protected boolean doColoringOfQuestionArea() {
+
+		return true;
+	}
+
+
 	public void setColourOfRectangleQuestionToValid() {
 		colour_of_rectangle_question = coloursCfg.getColour_Square_ValidSelection();
 		if (gameData.current_question instanceof IConfigurationQuestion_TextQuestion) {
