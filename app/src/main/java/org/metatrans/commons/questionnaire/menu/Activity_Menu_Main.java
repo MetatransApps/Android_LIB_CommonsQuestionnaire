@@ -1,6 +1,9 @@
 package org.metatrans.commons.questionnaire.menu;
 
 
+import org.metatrans.commons.Activity_Base_Ads_Banner;
+import org.metatrans.commons.DebugTags;
+import org.metatrans.commons.IEarnedRewardCallback;
 import org.metatrans.commons.app.Application_Base;
 import org.metatrans.commons.cfg.menu.Config_MenuMain_Base;
 import org.metatrans.commons.cfg.menu.Config_MenuMain_Melody;
@@ -8,6 +11,7 @@ import org.metatrans.commons.cfg.menu.IConfigurationMenu_Main;
 import org.metatrans.commons.cfg.sound.Config_MenuMain_Sound;
 import org.metatrans.commons.menu.Activity_Menu_Main_Base;
 import org.metatrans.commons.questionnaire.R;
+import org.metatrans.commons.ui.Toast_Base;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -102,7 +106,15 @@ public class Activity_Menu_Main extends Activity_Menu_Main_Base {
 						@Override
 						public void run() {
 
-							Activity_Menu_Main.this.openRewardedVideo();
+							Activity_Menu_Main.this.openRewardedVideo(new IEarnedRewardCallback() {
+								@Override
+								public void onEarnedReward() {
+
+									Activity_Base_Ads_Banner.timestamp_last_rewarded_ad_opening = System.currentTimeMillis();
+
+									Toast_Base.showToast_InCenter_Short(Activity_Menu_Main.this, "Reward earned");
+								}
+							});
 						}
 					};
 				}
